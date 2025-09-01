@@ -44,7 +44,7 @@ class HangmanGame:
     def valid_guess(self, guess: str) -> bool:
         """Check if the guess is a single alphabetic character."""
         return len(guess) == 1 and guess.isalpha()
-    
+
     def guess_letter(self, guess: str) -> GuessResult:
         """Process a letter guess and return guess result."""
         if not self.valid_guess(guess.lower()):
@@ -56,7 +56,7 @@ class HangmanGame:
             return GuessResult.CORRECT
         self.lives -= 1
         return GuessResult.INCORRECT
-    
+
     def is_won(self) -> bool:
         """Check if the game is won."""
         for ch in self.answer:

@@ -47,7 +47,7 @@ class HangmanGUI:
         self.remaining_time = 0
         self.game = None
         self.reset_game()
-        
+
     def update_display(self):
         """Update the GUI display based on current game state."""
         self.word_label.config(text=self.game.masked())
@@ -129,9 +129,13 @@ class HangmanGUI:
     def check_endgame(self):
         """Check if the game needs to be ended."""
         if self.game.is_won():
+            if self.timer_job:  # Cancel the timer if it's running
+                self.root.after_cancel(self.timer_job)
             messagebox.showinfo("Victory!", f"You found it! The answer was: {self.game.answer}")  # noqa: E501 pylint: disable= [C0301]
             self.reset_game()
         elif self.game.is_lost():
+            if self.timer_job:  # Cancel the timer if it's running
+                self.root.after_cancel(self.timer_job)
             messagebox.showerror("Game Over", f"Out of lives! The answer was: {self.game.answer}")  # noqa: E501 pylint: disable= [C0301]
             self.reset_game()
 
